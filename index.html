@@ -25,7 +25,7 @@
   --veas:       #B8922A;
   --njenn:      #7B5EA7;
   --njosette:   #3D7FA8;
-  --alan:       #4E7A4E;
+  --eve:        #C4727A;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
@@ -67,6 +67,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
 .chip[data-g="njenn"].active{background:var(--njenn)}
 .chip[data-g="njosette"].active{background:var(--njosette)}
 .chip[data-g="alan"].active{background:var(--alan)}
+.chip[data-g="eve"].active{background:var(--eve)}
 .chip-pip{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
 /* CALENDAR */
@@ -167,6 +168,13 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
 .rec-name{font-size:13px;font-weight:500;color:var(--charcoal)}
 .rec-note{font-size:11px;font-weight:300;color:var(--muted);font-style:italic;text-align:right;white-space:nowrap}
 
+/* TRANSPORT CARDS */
+.transport-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.transport-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px}
+.transport-icon{font-size:24px;margin-bottom:10px}
+.transport-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--wine);margin-bottom:8px}
+.transport-body{font-size:13px;font-weight:300;color:var(--text);line-height:1.6}
+
 @media(max-width:640px){
   .page-inner{padding:32px 20px 80px}
   nav{padding:0 16px}
@@ -181,7 +189,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
   <div class="nav-logo" onclick="showPage('cal')">Ava's <span>Graduation</span></div>
   <div class="nav-links">
     <button class="nav-btn active" data-page="cal"    onclick="showPage('cal')">Calendar</button>
-    <button class="nav-btn"        data-page="remind" onclick="showPage('remind')">Reminders</button>
+    <button class="nav-btn"        data-page="remind" onclick="showPage('remind')">Important Info</button>
     <button class="nav-btn"        data-page="recs"   onclick="showPage('recs')">Recommendations</button>
   </div>
 </nav>
@@ -206,19 +214,52 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
       <div class="chip" data-g="njenn"><div class="chip-pip" style="background:var(--njenn)"></div>Ninang Jenn & Kamea</div>
       <div class="chip" data-g="njosette"><div class="chip-pip" style="background:var(--njosette)"></div>Ninang Josette & Nate</div>
       <div class="chip" data-g="alan"><div class="chip-pip" style="background:var(--alan)"></div>Uncle Alan</div>
+      <div class="chip" data-g="eve"><div class="chip-pip" style="background:var(--eve)"></div>Eve</div>
     </div>
   </div>
   <div class="cal-outer"><div class="cal-grid" id="cal-grid"></div></div>
 </div>
 </div>
 
-<!-- REMINDERS PAGE -->
+<!-- IMPORTANT INFO PAGE -->
 <div class="page" id="page-remind">
 <div class="page-inner">
-  <div class="page-title">Reservation<em>Reminders</em></div>
-  <p class="page-sub">Mark your calendars — some of these book out fast</p>
+  <div class="page-title">Important<em>Information</em></div>
+  <p class="page-sub">Everything you need to know before and during the week</p>
   <div class="page-rule"></div>
-  <div class="reminders-grid">
+
+  <!-- GRADUATION INFO -->
+  <div class="section-heading" style="margin-bottom:20px">🎓 Graduation Day — May 16</div>
+  <div class="reminders-grid" style="margin-bottom:48px">
+    <div class="reminder-card" style="border-left:3px solid var(--gold)">
+      <div class="reminder-date" style="font-size:14px;min-width:auto">10:00<small>AM</small></div>
+      <div class="reminder-body">
+        <div class="reminder-name">Commencement Ceremony</div>
+        <div class="reminder-detail">Fordham University Lincoln Center campus. All guests welcome. Arrive early for seating.</div>
+      </div>
+      <div class="reminder-badge">All guests</div>
+    </div>
+    <div class="reminder-card" style="border-left:3px solid var(--gold)">
+      <div class="reminder-date" style="font-size:14px;min-width:auto">12:30<small>PM est.</small></div>
+      <div class="reminder-body">
+        <div class="reminder-name">Fordham College at Lincoln Center — Diploma Ceremony</div>
+        <div class="reminder-detail">Immediately following commencement. Time is an estimate — it begins right after the main ceremony ends.</div>
+      </div>
+      <div class="reminder-badge">FCLC only</div>
+    </div>
+    <div class="reminder-card" style="border-left:3px solid var(--terra)">
+      <div class="reminder-date" style="font-size:14px;min-width:auto">6:30<small>PM</small></div>
+      <div class="reminder-body">
+        <div class="reminder-name">Graduation Dinner @ CUT</div>
+        <div class="reminder-detail">Wolfgang Puck's steakhouse at the Four Seasons Hotel. Cocktail attire. This is the celebration dinner!</div>
+      </div>
+      <div class="reminder-badge">Cocktail attire</div>
+    </div>
+  </div>
+
+  <!-- RESERVATION REMINDERS -->
+  <div class="section-heading" style="margin-bottom:20px">📅 Reservation Reminders</div>
+  <div class="reminders-grid" style="margin-bottom:48px">
     <div class="reminder-card">
       <div class="reminder-date">4/14<small>Mon</small></div>
       <div class="reminder-body"><div class="reminder-name">Tatiana</div><div class="reminder-detail">Books exactly 28 days before 5/12. Go online at exactly 12pm — fills within minutes.</div></div>
@@ -250,19 +291,54 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
       <div class="reminder-badge">Confirm</div>
     </div>
   </div>
-  <div class="checklist-section">
-    <div class="section-heading">Pre-Trip Checklist</div>
-    <div class="checklist">
-      <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Book Tatiana (or Bond St backup)</div><div class="check-sub">April 14 at 12pm sharp</div></div></div>
-      <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Book Bar Bonobo</div><div class="check-sub">April 14</div></div></div>
-      <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Book Cocodaq</div><div class="check-sub">May 2 at 10am sharp</div></div></div>
-      <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Book Brunch Cruise (5/17)</div><div class="check-sub">Book in advance — fills up</div></div></div>
-      <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Confirm 5/17 group dinner restaurant</div></div></div>
-      <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Check Nuggets playoff schedule for One4One</div></div></div>
-      <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Get Yankees vs. Mets tickets @ Citi Field (5/15)</div></div></div>
-      <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Book Graduation Dinner @ CUT (5/16)</div></div></div>
-      <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Hotel rooms confirmed for all guests</div></div></div>
+
+  <!-- TRANSPORTATION -->
+  <div class="section-heading" style="margin-bottom:20px">🚇 Getting Around NYC</div>
+  <div class="transport-grid" style="margin-bottom:48px">
+    <div class="transport-card">
+      <div class="transport-icon">🚇</div>
+      <div class="transport-title">Subway</div>
+      <div class="transport-body">$3.00 per ride, each way. Accepts Apple Pay, Google Pay, contactless credit/debit cards — just tap and go at the turnstile. No need to buy a MetroCard. Runs 24/7.</div>
     </div>
+    <div class="transport-card">
+      <div class="transport-icon">🚕</div>
+      <div class="transport-title">Uber / Lyft / Taxi</div>
+      <div class="transport-body">Rideshare apps work great across the city. Yellow cabs can be hailed on the street or booked via the Curb app. Tip is expected — 20% is standard.</div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-icon">🚶</div>
+      <div class="transport-title">Walking</div>
+      <div class="transport-body">NYC is very walkable. Many of our plans are within walking distance of each other. Wear comfortable shoes — you'll be on your feet a lot!</div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-icon">🚌</div>
+      <div class="transport-title">Bus</div>
+      <div class="transport-body">Also $3.00 per ride with tap to pay. Good for crosstown trips where the subway doesn't run directly. Less used but reliable.</div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-icon">✈️</div>
+      <div class="transport-title">Airport to Hotel</div>
+      <div class="transport-body">JFK: ~45–60 min by cab ($70–90). LGA: ~30–40 min by cab ($40–60). EWR (Newark): ~45–60 min by cab ($80–100). Uber/Lyft are similar pricing.</div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-icon">🏟️</div>
+      <div class="transport-title">Citi Field (5/15 game)</div>
+      <div class="transport-body">Take the 7 train from Times Square / Hudson Yards. About 45–50 min total. $3 each way. Leave by 5:45pm for a 7:15pm first pitch.</div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="section-heading" style="margin-bottom:20px">✅ Pre-Trip Checklist</div>
+  <div class="checklist">
+    <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Book Tatiana (or Bond St backup)</div><div class="check-sub">April 14 at 12pm sharp</div></div></div>
+    <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Book Bar Bonobo</div><div class="check-sub">April 14</div></div></div>
+    <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Book Cocodaq</div><div class="check-sub">May 2 at 10am sharp</div></div></div>
+    <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Book Brunch Cruise (5/17)</div><div class="check-sub">Book in advance — fills up</div></div></div>
+    <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Confirm 5/17 group dinner restaurant</div></div></div>
+    <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Check Nuggets playoff schedule for One4One</div></div></div>
+    <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Get Yankees vs. Mets tickets @ Citi Field (5/15)</div></div></div>
+    <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Book Graduation Dinner @ CUT (5/16)</div></div></div>
+    <div class="check-item" onclick="this.classList.toggle('done')"><div class="check-box"></div><div><div class="check-text">Hotel rooms confirmed for all guests</div></div></div>
   </div>
 </div>
 </div>
@@ -302,17 +378,18 @@ const GUESTS = {
   njenn:    { label:'Ninang Jenn & Kamea',   color:'#7B5EA7', days:['514','515','516','517','518'] },
   njosette: { label:'Ninang Josette & Nate', color:'#3D7FA8', days:['515','516','517'] },
   alan:     { label:'Uncle Alan',            color:'#4E7A4E', days:['514','515','516','517','518'] },
+  eve:      { label:'Eve',                   color:'#C4727A', days:['511','512','513','514','515','516','517','518'] },
 };
 
 const DAYS = [
-  { id:'511', date:'5/11', dow:'Sunday',    label:'Arrival',                  grad:false },
-  { id:'512', date:'5/12', dow:'Monday',    label:'West Village Day',          grad:false },
-  { id:'513', date:'5/13', dow:'Tuesday',   label:'Brooklyn Day',             grad:false },
-  { id:'514', date:'5/14', dow:'Wednesday', label:'Cloisters · Everyone In',  grad:false },
-  { id:'515', date:'5/15', dow:'Thursday',  label:'City Day',                 grad:false },
-  { id:'516', date:'5/16', dow:'Friday',    label:'🎓 Graduation Day',        grad:true  },
-  { id:'517', date:'5/17', dow:'Saturday',  label:'NYC for Everyone',          grad:false },
-  { id:'518', date:'5/18', dow:'Sunday',    label:'Last Day',                 grad:false },
+  { id:'511', date:'5/11', dow:'Monday',    label:'Arrival',                  grad:false },
+  { id:'512', date:'5/12', dow:'Tuesday',   label:'West Village Day',          grad:false },
+  { id:'513', date:'5/13', dow:'Wednesday', label:'Brooklyn Day',             grad:false },
+  { id:'514', date:'5/14', dow:'Thursday',  label:'Cloisters · Everyone In',  grad:false },
+  { id:'515', date:'5/15', dow:'Friday',    label:'City Day',                 grad:false },
+  { id:'516', date:'5/16', dow:'Saturday',  label:'🎓 Graduation Day',        grad:true  },
+  { id:'517', date:'5/17', dow:'Sunday',    label:'NYC for Everyone',          grad:false },
+  { id:'518', date:'5/18', dow:'Monday',    label:'Last Day',                 grad:false },
 ];
 
 // type: meal | act | night | special | fam | options | ceremony
@@ -321,7 +398,8 @@ const DAYS = [
 const EVENTS = {
   '511':[
     { type:'fam',  name:'Brooks Family arrives', guests:['brooks'] },
-    { type:'act',  name:'Check in, put things down', guests:['brooks'] },
+    { type:'fam',  name:'Eve arrives', guests:['eve'] },
+    { type:'act',  name:'Check in, put things down', guests:['brooks','eve'] },
   ],
   '512':[
     { type:'meal', name:'Apollo Bagels', guests:['brooks'],
