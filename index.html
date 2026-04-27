@@ -324,7 +324,7 @@ var GUESTS = {
 };
 
 // Guests who get the interactive plan builder
-var PLANNERS = ['brooks','veas','njenn','njosette','alan'];
+var PLANNERS = ['brooks','veas','njenn','njosette','alan','eve'];
 
 var DAYS = [
   { id:'511', date:'5/11', dow:'Monday',    grad:false },
@@ -399,7 +399,7 @@ var EVENTS = {
   '517':[
     { type:'meal', name:'Brunch Cruise', sub:'12:30pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'TBD', location:'TBD', fromHotel:'Cab to pier', notes:'Board 30 min before departure.' }},
     { type:'act',  name:'Free afternoon', sub:'Check the Recommendations page!', guests:['veas','njenn','njosette','alan'], planSlot:'517-afternoon' },
-    { type:'act',  name:'Activity TBD', guests:['eve'] },
+    { type:'act',  name:'Activity TBD', guests:['eve'], planSlot:'517-afternoon' },
     { type:'act',  name:'One World Trade', guests:['grandma','lolola','alan'], modal:{ dresscode:'Casual', location:'Lower Manhattan' }},
     { type:'act',  name:'One World Trade', guests:['brooks'], modal:{ dresscode:'Casual', location:'Lower Manhattan', notes:'Dad attending. Ava + Mom: TBD activity.' }},
     { type:'act',  name:'SoHo · Stussy Store · Shopping', guests:['veas'] },
@@ -484,23 +484,53 @@ var RECS = [
   ]}
 ];
 
-// ── PLAN BUILDER STATE ───────────────────────────────────────────
+// ── SUPABASE SYNC ────────────────────────────────────────────────
 
-var currentGuest = 'all';
-var currentPlanSlot = null;
+var SUPABASE_URL = 'https://wspvevnfzrwjdggpnqfi.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzcHZldm5menJ3amRnZ3BucWZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyNDI4MDgsImV4cCI6MjA5MjgxODgwOH0.d9rEQSNOoJC59SD2SwPQFJThPZreT4h0iTUz69Vz1YY';
+
+function sbHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    'apikey': SUPABASE_KEY,
+    'Authorization': 'Bearer ' + SUPABASE_KEY
+  };
+}
+
+function planId(guest, slot) { return guest + '_' + slot; }
+
+// Local cache so UI stays fast
+var planCache = {};
 
 function getPlans(guest, slot) {
-  try {
-    var key = 'plans_' + guest + '_' + slot;
-    var saved = localStorage.getItem(key);
-    return saved ? JSON.parse(saved) : [];
-  } catch(e) { return []; }
+  var key = planId(guest, slot);
+  return planCache[key] || [];
 }
 
 function savePlans(guest, slot, plans) {
-  try {
-    localStorage.setItem('plans_' + guest + '_' + slot, JSON.stringify(plans));
-  } catch(e) {}
+  var key = planId(guest, slot);
+  planCache[key] = plans;
+  // Push to Supabase in background
+  fetch(SUPABASE_URL + '/rest/v1/plans', {
+    method: 'POST',
+    headers: Object.assign({}, sbHeaders(), { 'Prefer': 'resolution=merge-duplicates' }),
+    body: JSON.stringify({ id: key, guest: guest, slot: slot, data: plans, updated_at: new Date().toISOString() })
+  }).catch(function(e) { console.warn('Sync failed:', e); });
+}
+
+function loadAllPlans(guest, callback) {
+  fetch(SUPABASE_URL + '/rest/v1/plans?guest=eq.' + guest, {
+    headers: sbHeaders()
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(rows) {
+    if (!Array.isArray(rows)) return;
+    rows.forEach(function(row) {
+      planCache[row.id] = row.data || [];
+    });
+    if (callback) callback();
+  })
+  .catch(function(e) { console.warn('Load failed:', e); if (callback) callback(); });
 }
 
 function openPlanPanel(guest, slot, dayLabel) {
@@ -514,7 +544,7 @@ function openPlanPanel(guest, slot, dayLabel) {
 
 function closePlanPanel() {
   document.getElementById('plan-panel-bg').classList.remove('open');
-  buildCalendar(currentGuest);
+  loadAllPlans(currentGuest, function() { buildCalendar(currentGuest); });
 }
 
 function renderRecPicker(guest, slot) {
@@ -586,13 +616,24 @@ function renderPlanSlot(guest, slot) {
   el.querySelector('.plan-items').innerHTML = itemsHtml;
 }
 
+// ── PLAN BUILDER STATE ───────────────────────────────────────────
+
+var currentGuest = 'all';
+var currentPlanSlot = null;
+
 // ── FILTER ──────────────────────────────────────────────────────
 
 function selectGuest(g, el) {
   document.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
   el.classList.add('active');
   currentGuest = g;
-  buildCalendar(g);
+  // Load this guest's plans from Supabase, then render
+  if (PLANNERS.indexOf(g) !== -1) {
+    buildCalendar(g); // show immediately with cached data
+    loadAllPlans(g, function() { buildCalendar(g); }); // re-render once synced
+  } else {
+    buildCalendar(g);
+  }
 }
 
 // ── CALENDAR ────────────────────────────────────────────────────
