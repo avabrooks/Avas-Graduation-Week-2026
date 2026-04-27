@@ -324,7 +324,7 @@ var GUESTS = {
 };
 
 // Guests who get the interactive plan builder
-var PLANNERS = ['veas','njenn','njosette','alan'];
+var PLANNERS = ['brooks','veas','njenn','njosette','alan'];
 
 var DAYS = [
   { id:'511', date:'5/11', dow:'Monday',    grad:false },
@@ -345,34 +345,34 @@ var EVENTS = {
   '512':[
     { type:'act',  name:'Check in to Park Hyatt Hotel', guests:['brooks'], modal:{ location:'Park Hyatt New York, Midtown' }},
     { type:'meal', name:'Apollo Bagels', guests:['brooks'], modal:{ dresscode:'Casual', location:'West Village' }},
-    { type:'meal', name:'Coffee @ Rhythm Zero', guests:['brooks'], modal:{ dresscode:'Casual', location:'West Village', fromHotel:'5 min walk from Apollo Bagels' }},
+    { type:'meal', name:'Coffee @ Rhythm Zero', guests:['brooks'], modal:{ dresscode:'Casual', location:'West Village', notes:'5 min walk from Apollo Bagels' }},
     { type:'act',  name:'West Village Walk', guests:['brooks'], modal:{ dresscode:'Casual', location:'West Village', notes:'Lelabar · The C Cafe · L\'Industrie Pizza · Hudson St. About 1.5 hours.' }},
     { type:'act',  name:'Walk to Washington Square Park', guests:['brooks'], modal:{ dresscode:'Casual', location:'Greenwich Village' }},
     { type:'act',  name:'Back to hotel', guests:['brooks'] },
     { type:'meal', name:'Drinks @ Ripple Room', sub:'~5:30pm', guests:['brooks','eve'], modal:{ dresscode:'Casual', location:'LES', fromHotel:'25 min subway · ~30 min Uber' }},
-    { type:'meal', name:'Dinner @ Lil\' Frankies', sub:'7:00pm', guests:['brooks','eve'], modal:{ dresscode:'Casual', location:'East Village', fromHotel:'11 min walk from Ripple Room' }},
-    { type:'night', name:'Jac\'s on Bond', guests:['brooks','eve'], modal:{ dresscode:'Casual', location:'NoHo', fromHotel:'8 min walk from Lil\' Frankies' }}
+    { type:'meal', name:'Dinner @ Lil\' Frankies', sub:'7:00pm', guests:['brooks','eve'], modal:{ dresscode:'Casual', location:'East Village', notes:'11 min walk from Ripple Room' }},
+    { type:'night', name:'Nightcap @ Jac\'s on Bond', guests:['brooks','eve'], modal:{ dresscode:'Casual', location:'NoHo', notes:'8 min walk from Lil\' Frankies' }}
   ],
   '513':[
     { type:'meal',    name:'Hotel Breakfast', guests:['brooks'] },
     { type:'special', name:'Brooklyn Sports & Entertainment Tour', guests:['brooks'], modal:{ dresscode:'Casual', location:'Brooklyn', fromHotel:'46 min on the train' }},
-    { type:'act',  name:'Stop by Barclays Center', guests:['brooks'], modal:{ dresscode:'Casual', location:'Brooklyn', fromHotel:'20 min from BSE' }},
-    { type:'act',  name:'New York Transit Museum', guests:['brooks'], modal:{ dresscode:'Casual', location:'Brooklyn Heights', fromHotel:'12 min subway · 21 min walk', notes:'Optional if time allows.' }},
-    { type:'meal', name:'Other Half Brewing', sub:'Large Brooklyn location', guests:['brooks'], modal:{ dresscode:'Casual', location:'Brooklyn', fromHotel:'21 min from Barclays · 15 min from Transit Museum' }},
-    { type:'meal', name:'Late Lunch @ Cocodaq', sub:'2:00pm', guests:['brooks'], modal:{ dresscode:'Casual', location:'Union Square', fromHotel:'~30 min from Brooklyn', notes:'Korean fried chicken from the same team behind COTE.' }},
+    { type:'act',  name:'Stop by Barclays Center', guests:['brooks'], modal:{ dresscode:'Casual', location:'Brooklyn', notes:'20 min from BSE' }},
+    { type:'act',  name:'New York Transit Museum', guests:['brooks'], modal:{ dresscode:'Casual', location:'Brooklyn Heights', notes:'12 min subway · 21 min walk from Barclays. Optional if time allows.' }},
+    { type:'meal', name:'Other Half Brewing', sub:'Large Brooklyn location', guests:['brooks'], modal:{ dresscode:'Casual', location:'Brooklyn', notes:'21 min from Barclays · 15 min from Transit Museum' }},
+    { type:'meal', name:'Late Lunch @ Cocodaq', sub:'2:00pm', guests:['brooks'], modal:{ dresscode:'Casual', location:'Union Square', notes:'~30 min from Brooklyn. Korean fried chicken from the same team behind COTE.' }},
     { type:'act',  name:'Back to hotel', guests:['brooks'] },
-    { type:'meal', name:'Drinks @ Galerie Bar', sub:'7:30pm', guests:['brooks','eve'], modal:{ dresscode:'Business casual', location:'Tribeca' }},
-    { type:'meal', name:'Dinner @ Huso', sub:'8:30pm', guests:['brooks','eve'], modal:{ dresscode:'Business casual', location:'Tribeca', fromHotel:'5 min walk from Galerie Bar' }}
+    { type:'meal', name:'Drinks @ Galerie Bar', sub:'7:30pm', guests:['brooks','eve'], modal:{ dresscode:'Business casual', location:'Tribeca', notes:'~25 min from hotel on train · 23 min drive' }},
+    { type:'meal', name:'Dinner @ Huso', sub:'8:30pm', guests:['brooks','eve'], modal:{ dresscode:'Business casual', location:'Tribeca', notes:'5 min walk from Galerie Bar' }}
   ],
   '514':[
     { type:'meal', name:'Hotel Breakfast', guests:['brooks'] },
     { type:'fam',  name:'Ninang Jenn & Kamea arrive', guests:['njenn'] },
     { type:'act',  name:'The Met Cloisters', guests:['brooks'], modal:{ dresscode:'Casual', location:'Inwood / Fort Tryon Park', fromHotel:'40 min subway' }},
-    { type:'meal', name:'Lunch @ Bondi Sushi', guests:['brooks'], modal:{ dresscode:'Casual', location:'Upper West Side', fromHotel:'30 min from The Met Cloisters' }},
     { type:'act',  name:'Back to hotel', guests:['brooks'] },
+    { type:'act',  name:'Free time', sub:'Check the Recommendations page!', guests:['brooks'], planSlot:'514-free' },
     { type:'meal', name:'Louis Vuitton Cafe', sub:'2:45pm', guests:['njenn','brooks'], modal:{ location:'5th Ave, Midtown', fromHotel:'10 min walk' }},
-    { type:'meal', name:'Bibliothèque', guests:['njenn','brooks'], modal:{ dresscode:'Casual', location:'SoHo', fromHotel:'20 min cab', notes:'Drinks & snacks.' }},
-    { type:'meal', name:'Bibliothèque', guests:['alan'], modal:{ dresscode:'Casual', location:'SoHo', fromHotel:'20 min cab', notes:'Drinks & snacks. Optional.' }},
+    { type:'meal', name:'Bibliothèque', guests:['njenn','brooks'], modal:{ dresscode:'Casual', location:'SoHo', notes:'Drinks & snacks. 25 min train from Louis Vuitton Cafe.' }},
+    { type:'meal', name:'Bibliothèque', guests:['alan'], modal:{ dresscode:'Casual', location:'SoHo', notes:'Drinks & snacks. Optional. 25 min train from Louis Vuitton Cafe.' }},
     { type:'fam',  name:'✦ Everyone arrives to NYC', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
     { type:'meal', name:'Catered pizza at hotel', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan'], modal:{ notes:'Pizza will be at the hotel. Room number TBD.' }}
   ],
@@ -416,14 +416,72 @@ var EVENTS = {
 };
 
 var RECS = [
-  { cat:'Coffee', items:[['Birch Coffee','multiple locations'],['Blue Bottle Coffee','multiple locations'],['The Soiree','Hell\'s Kitchen'],['Rhythm Zero','multiple locations'],['Ground Central Coffee Co.','multiple locations'],['Brooklyn Roasting Co.','multiple locations']] },
-  { cat:'Bagels', items:[['Apollo Bagels','multiple locations'],['Popup Bagels','multiple locations'],['Broad Nosh Bagels','multiple locations'],['Tompkins Square Bagels','multiple locations']] },
-  { cat:'Pizza', items:[['Johnny\'s Pizza','Lower East Side'],['Pop\'s Pizza','multiple locations'],['Joe\'s Pizza','multiple locations'],['L\'Industrie','multiple locations']] },
-  { cat:'Drinks — Casual', items:[['Central Park Tavern','near Columbus Circle'],['Red Stache','Hell\'s Kitchen'],['Empire Rooftop','near Columbus Circle'],['All & Sundry','near Columbus Circle'],['Bar Pisellino','West Village'],['Lelabar','West Village']] },
-  { cat:'Drinks — Upscale', items:[['Bibliothèque','SoHo'],['Bar Bonobo','Chelsea'],['Jac\'s on Bond','NoHo'],['Armada','LES'],['Pearlbox','SoHo']] },
-  { cat:'Activities & Museums', items:[['MoMA','Midtown'],['The Met','Upper East Side'],['Museum of Natural History','Upper West Side'],['9/11 Memorial & Museum','Lower Manhattan'],['New York Public Library','Midtown'],['Top of the Rock','Rockefeller Center'],['Empire State Building','Midtown']] },
-  { cat:'Parks & Outdoors', items:[['Central Park','Walk the loop or Bethesda Fountain'],['Washington Square Park','Greenwich Village'],['Bryant Park','Midtown'],['The High Line','Chelsea'],['Riverside Park','Upper West Side'],['Pier 57','Chelsea']] },
-  { cat:'Areas to Explore', items:[['West Village','charming & walkable'],['SoHo','cobblestones, galleries, shopping'],['Chinatown','food, markets, Canal St'],['Koreatown (K-Town)','32nd St · food & nightlife'],['Brooklyn Heights','Promenade views of Manhattan'],['DUMBO','Brooklyn · waterfront & bridge views'],['Hell\'s Kitchen','great restaurant strip']] }
+  { cat:'Coffee', items:[
+    { name:'Birch Coffee', loc:'Multiple locations', dist:'' },
+    { name:'Blue Bottle Coffee', loc:'Multiple locations', dist:'' },
+    { name:'The Soiree', loc:'Hell\'s Kitchen', dist:'5 min walk from hotel' },
+    { name:'Rhythm Zero', loc:'Multiple locations', dist:'' },
+    { name:'Ground Central Coffee Co.', loc:'Multiple locations', dist:'' },
+    { name:'Brooklyn Roasting Co.', loc:'Multiple locations', dist:'' }
+  ]},
+  { cat:'Bagels', items:[
+    { name:'Apollo Bagels', loc:'Multiple locations', dist:'' },
+    { name:'Popup Bagels', loc:'Multiple locations', dist:'' },
+    { name:'Broad Nosh Bagels', loc:'Multiple locations', dist:'' },
+    { name:'Tompkins Square Bagels', loc:'Multiple locations', dist:'' }
+  ]},
+  { cat:'Pizza', items:[
+    { name:'Johnny\'s Pizza', loc:'Lower East Side', dist:'~25 min subway' },
+    { name:'Pop\'s Pizza', loc:'Multiple locations', dist:'' },
+    { name:'Joe\'s Pizza', loc:'Multiple locations', dist:'' },
+    { name:'L\'Industrie', loc:'Multiple locations', dist:'' }
+  ]},
+  { cat:'Shopping', items:[
+    { name:'MLB Store', loc:'Midtown', dist:'10 min walk from hotel' },
+    { name:'NBA Store', loc:'Midtown', dist:'10 min walk from hotel' },
+    { name:'Stussy', loc:'SoHo', dist:'~20 min subway' }
+  ]},
+  { cat:'Drinks — Casual', items:[
+    { name:'Central Park Tavern', loc:'Near Columbus Circle', dist:'5 min walk from hotel' },
+    { name:'Red Stache', loc:'Hell\'s Kitchen', dist:'8 min walk from hotel' },
+    { name:'Empire Rooftop', loc:'Near Columbus Circle', dist:'8 min drive · 15 min walk' },
+    { name:'All & Sundry', loc:'Near Columbus Circle', dist:'5 min walk from hotel' },
+    { name:'Bar Pisellino', loc:'West Village', dist:'~20 min subway' },
+    { name:'Lelabar', loc:'West Village', dist:'~20 min subway' }
+  ]},
+  { cat:'Drinks — Upscale', items:[
+    { name:'Bibliothèque', loc:'SoHo', dist:'~20 min cab' },
+    { name:'Bar Bonobo', loc:'Chelsea', dist:'~15 min cab' },
+    { name:'Jac\'s on Bond', loc:'NoHo', dist:'~20 min subway' },
+    { name:'Armada', loc:'LES', dist:'~25 min subway' },
+    { name:'Pearlbox', loc:'SoHo', dist:'~20 min cab' }
+  ]},
+  { cat:'Activities & Museums', items:[
+    { name:'MoMA', loc:'Midtown', dist:'10 min walk from hotel' },
+    { name:'The Met', loc:'Upper East Side', dist:'20 min subway' },
+    { name:'Museum of Natural History', loc:'Upper West Side', dist:'15 min subway' },
+    { name:'9/11 Memorial & Museum', loc:'Lower Manhattan', dist:'30 min subway' },
+    { name:'New York Public Library', loc:'Midtown', dist:'10 min walk from hotel' },
+    { name:'Top of the Rock', loc:'Rockefeller Center', dist:'10 min walk from hotel' },
+    { name:'Empire State Building', loc:'Midtown', dist:'15 min walk from hotel' }
+  ]},
+  { cat:'Parks & Outdoors', items:[
+    { name:'Central Park', loc:'Walk the loop or Bethesda Fountain', dist:'10 min walk from hotel' },
+    { name:'Washington Square Park', loc:'Greenwich Village', dist:'~20 min subway' },
+    { name:'Bryant Park', loc:'Midtown', dist:'10 min walk from hotel' },
+    { name:'The High Line', loc:'Chelsea', dist:'~15 min cab' },
+    { name:'Riverside Park', loc:'Upper West Side', dist:'15 min subway' },
+    { name:'Pier 57', loc:'Chelsea', dist:'~15 min cab' }
+  ]},
+  { cat:'Areas to Explore', items:[
+    { name:'West Village', loc:'Charming & walkable', dist:'~20 min subway' },
+    { name:'SoHo', loc:'Shopping, cobblestones, galleries', dist:'~20 min cab' },
+    { name:'Chinatown', loc:'Food, markets, Canal St', dist:'~25 min subway' },
+    { name:'Koreatown (K-Town)', loc:'32nd St · food & nightlife', dist:'10 min walk from hotel' },
+    { name:'Brooklyn Heights', loc:'Promenade views of Manhattan', dist:'~35 min subway' },
+    { name:'DUMBO', loc:'Brooklyn · waterfront & bridge views', dist:'~40 min subway' },
+    { name:'Hell\'s Kitchen', loc:'Great restaurant strip', dist:'10 min walk from hotel' }
+  ]}
 ];
 
 // ── PLAN BUILDER STATE ───────────────────────────────────────────
@@ -469,15 +527,18 @@ function renderRecPicker(guest, slot) {
     for (var j = 0; j < cat.items.length; j++) {
       var item = cat.items[j];
       var isAdded = addedNames.indexOf(item.name) !== -1;
-      var safeItem = JSON.stringify(item).replace(/'/g,"\\'");
-      html += '<div class="plan-rec-chip' + (isAdded ? ' added' : '') + '" onclick="toggleRecPlan(\'' + guest + '\',\'' + slot + '\',' + safeItem + ',this)">' + item.name + (item.loc ? '<span style="opacity:.6;font-size:10px;display:block;margin-top:1px">' + item.loc + '</span>' : '') + '</div>';
+      html += '<div class="plan-rec-chip' + (isAdded ? ' added' : '') + '" onclick="toggleRecPlan(\'' + guest + '\',\'' + slot + '\',' + i + ',' + j + ',this)">' +
+        item.name +
+        (item.loc ? '<span style="opacity:.6;font-size:10px;display:block;margin-top:1px">' + item.loc + '</span>' : '') +
+        '</div>';
     }
     html += '</div>';
   }
   document.getElementById('plan-rec-list').innerHTML = html;
 }
 
-function toggleRecPlan(guest, slot, item, el) {
+function toggleRecPlan(guest, slot, catIdx, itemIdx, el) {
+  var item = RECS[catIdx].items[itemIdx];
   var plans = getPlans(guest, slot);
   var idx = -1;
   for (var i = 0; i < plans.length; i++) { if (plans[i].name === item.name) { idx = i; break; } }
