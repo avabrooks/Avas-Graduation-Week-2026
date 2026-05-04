@@ -88,7 +88,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
 .ev.night::before{background:var(--wine)}
 .ev.special::before{background:var(--gold)}
 .ev.fam::before{background:#C9897A}
-.ev.transport::before{background:var(--gold)}
+.ev.transportation::before{background:var(--gold)}
 .ev.options-card{background:rgba(240,230,214,.5);cursor:default}
 .ev.options-card::before{background:var(--gold-light)}
 .ev:not(.options-card):not(.ceremony):hover{box-shadow:0 6px 20px rgba(107,45,62,.1);transform:translateY(-2px);border-color:var(--gold-light)}
@@ -351,7 +351,7 @@ var EVENTS = {
     { type:'night', name:'Nightcap @ Jac\u0027s on Bond', guests:['brooks','eve'], modal:{ dresscode:'Casual', location:'NoHo', notes:'8 min walk from Lil\u0027 Frankies' }}
   ],
   '513':[
-    { type:'meal',    name:'Hotel Breakfast', guests:['brooks'] },
+    { type:'meal', name:'Hotel Breakfast @ Parker\u0027s', sub:'6:30\u201311am', guests:['brooks'], modal:{ location:'Parker\u0027s, hotel lobby', notes:'Choose your own time \u2014 open 6:30\u201311am.' }},
     { type:'special', name:'Brooklyn Sports & Entertainment Tour', guests:['brooks'], modal:{ dresscode:'Casual', location:'Brooklyn', fromHotel:'46 min on the train' }},
     { type:'act',  name:'Stop by Barclays Center', guests:['brooks'], modal:{ dresscode:'Casual', location:'Brooklyn', notes:'20 min from BSE' }},
     { type:'act',  name:'New York Transit Museum', guests:['brooks'], modal:{ dresscode:'Casual', location:'Brooklyn Heights', notes:'12 min subway \u00b7 21 min walk from Barclays. Optional if time allows.' }},
@@ -362,7 +362,7 @@ var EVENTS = {
     { type:'meal', name:'Dinner @ Huso', sub:'8:30pm', guests:['brooks','eve'], modal:{ dresscode:'Business casual', location:'Tribeca', notes:'5 min walk from Galerie Bar' }}
   ],
   '514':[
-    { type:'meal', name:'Hotel Breakfast', guests:['brooks'] },
+    { type:'meal', name:'Hotel Breakfast @ Parker's', sub:'6:30–11am', guests:['brooks'], modal:{ location:'Parker's, hotel lobby', notes:'Choose your own time — open 6:30–11am.' }},
     { type:'fam',  name:'Ninang Jenn & Kamea arrive', guests:['njenn'] },
     { type:'act',  name:'The Met Cloisters', guests:['brooks'], modal:{ dresscode:'Casual', location:'Inwood / Fort Tryon Park', fromHotel:'40 min subway' }},
     { type:'act',  name:'Back to hotel', guests:['brooks'] },
@@ -373,7 +373,7 @@ var EVENTS = {
     { type:'meal', name:'Catered pizza at hotel', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ notes:'Pizza will be at the hotel. Room number TBD.' }}
   ],
   '515':[
-    { type:'meal', name:'Hotel Breakfast', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
+    { type:'meal', name:'Hotel Breakfast @ Parker's', sub:'6:30–11am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ location:'Parker's, hotel lobby', notes:'Choose your own time — open 6:30–11am.' }},
     { type:'act',  name:'Pilates class \u2014 Tita Jenny', guests:['veas'], modal:{ location:'TBD', fromHotel:'TBD' }},
     { type:'act',  name:'Free time', sub:'Check the Recommendations page!', guests:['brooks','veas','njenn','njosette','alan'], planSlot:'515-morning' },
     { type:'act',  name:'Tour of Fordham University LC', guests:['brooks','grandma','lolola','alan','eve'], planSlot:'515-morning' },
@@ -387,20 +387,21 @@ var EVENTS = {
     { type:'meal', name:'Dinner @ Showa Era', sub:'6:30pm', guests:['lolola','brooks','alan','eve','grandma'], modal:{ dresscode:'Casual', location:'East Village', notes:'6:30pm reservation' }}
   ],
   '516':[
-    { type:'meal', name:'Hotel Breakfast', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
-    { type:'transport', name:'Group transportation to Rose Hill', sub:'8:30am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ notes:'Transportation will leave promptly at 8:30am. Please meet in Hotel Lobby.' }},
+    { type:'meal', name:'Hotel Breakfast @ Parker's', sub:'6:30–11am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ location:'Parker's, hotel lobby', notes:'Choose your own time — open 6:30–11am.' }},
+    { type:'transportation', name:'Group transport to Rose Hill', sub:'8:30am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
     { type:'ceremony', name:'Graduation Ceremony', sub:'10:00am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve','nic'], modal:{ location:'Fordham University \u2014 Rose Hill Campus', notes:'Group transport departs hotel at 8:30am. Return transport departs Rose Hill at 2:30pm.' }},
-    { type:'transport', name:'Group transportation from Rose Hill', sub:'2:30pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ notes:'Transportation will leave at 2:30 from the Walsh Gate.' } },
+    { type:'transportation', name:'Group transport from Rose Hill', sub:'2:30pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
     { type:'act',  name:'Back to hotel + get ready', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
-    { type:'transport', name:'Group transportation to CUT', sub:'6:00pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve','nic'], modal:{ notes:'Transportation will leave promptly at 6:30pm. Please meet in Hotel Lobby.' }},
+    { type:'transportation', name:'Group transport to CUT', sub:'6:00pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve','nic'] },
     { type:'meal', name:'Graduation Dinner @ CUT', sub:'6:30pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve','nic'], modal:{ dresscode:'Dressy attire', location:'CUT by Wolfgang Puck', notes:'Group transport departs hotel at 6:00pm.' }},
     { type:'night', name:'Drinks @ Tigre', sub:'10:00pm', guests:['njenn','brooks','eve','nic'], modal:{ dresscode:'Dressy attire', location:'Midtown', notes:'Following graduation dinner. Kamea (Ninang Jenn & Kamea), Ava (Brooks Family), Eve, and Nic.' }}
   ],
   '517':[
-    { type:'meal', name:'Hotel Breakfast', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
-    { type:'transport', name:'Group transportation to pier 40', sub:'11:30am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ notes:'Transportation will leave promptly at 11:30am. Please meet in Hotel Lobby.' } },
-    { type:'meal', name:'Brunch Cruise', sub:'12:00pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'Smart Casual', notes:'Boarding starts at 12:00pm.' }},
-    { type:'act',  name:'Free afternoon', sub:'Check the Recommendations page!', guests:['veas','njenn','njosette','alan', 'eve'], planSlot:'517-afternoon' },
+    { type:'meal', name:'Hotel Breakfast @ Parker's', sub:'6:30–11am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ location:'Parker's, hotel lobby', notes:'Choose your own time — open 6:30–11am.' }},
+    { type:'transportation', name:'Group transport to pier', sub:'11:30am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
+    { type:'meal', name:'Brunch Cruise', sub:'12:00pm boarding', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'Smart Casual', notes:'Board at 12:00pm.' }},
+    { type:'act',  name:'Free afternoon', sub:'Check the Recommendations page!', guests:['veas','njenn','njosette','alan'], planSlot:'517-afternoon' },
+    { type:'act',  name:'Activity TBD', guests:['eve'], planSlot:'517-afternoon' },
     { type:'act',  name:'One World Trade', guests:['brooks'], modal:{ dresscode:'Casual', location:'Lower Manhattan', notes:'Dad attending. Ava + Mom: TBD activity.' }},
     { type:'meal', name:'Optional Group Dinner', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'Casual', location:'SoHo', notes:'Please confirm attendance. Current reservation for 10.' }},
     { type:'fam',  name:'Ninang Josette & Nate depart \uD83C\uDF19', guests:['njosette'] }
@@ -645,7 +646,7 @@ function makeCard(ev, day, g, isPlanner) {
     el.className = 'plan-slot';
     el.id = 'planslot-'+slot;
     el.innerHTML = '<div class="plan-slot-label">✦ Your free time</div><div class="plan-items">'+itemsHtml+'</div><button class="plan-add-btn" onclick="openPlanPanel(\''+g+'\',\''+slot+'\',\''+dayLabel+'\')">+ Add plans</button>';
-  } else if (ev.type === 'transport') {
+  } else if (ev.type === 'transportation') {
     el.className = 'ev transport';
     el.innerHTML = '<div class="ev-time">'+ev.sub+'</div><div class="ev-name">'+ev.name+'</div>';
   } else {
