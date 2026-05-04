@@ -27,6 +27,7 @@
   --njosette:   #3D7FA8;
   --alan:       #4E7A4E;
   --eve:        #C4727A;
+  --nic:        #D4847A;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--cream);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
@@ -64,9 +65,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
 .chip[data-g="njosette"].active{background:var(--njosette)}
 .chip[data-g="alan"].active{background:var(--alan)}
 .chip[data-g="eve"].active{background:var(--eve)}
+.chip[data-g="nic"].active{background:var(--nic)}
 .chip-pip{width:8px;height:8px;border-radius:50%;flex-shrink:0;pointer-events:none}
 
-.cal-outer{overflow-x:auto;padding-bottom:12px}
+.cal-outer{overflow-x:auto;padding-bottom:12px;overflow-y:visible}
 .cal-outer::-webkit-scrollbar{height:4px}
 .cal-outer::-webkit-scrollbar-track{background:var(--cream2)}
 .cal-outer::-webkit-scrollbar-thumb{background:var(--gold-light);border-radius:2px}
@@ -75,8 +77,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
 .day-col{width:210px;flex-shrink:0;display:flex;flex-direction:column;gap:8px;animation:fadeIn .25s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .day-head{background:var(--wine);border-radius:10px 10px 0 0;padding:14px 14px 12px;text-align:center;flex-shrink:0}
-.cal-outer{overflow-x:auto;padding-bottom:12px;overflow-y:visible}
-.cal-grid{display:flex;gap:12px;align-items:flex-start;min-width:max-content;padding-top:0}
 .day-head.is-grad{background:linear-gradient(140deg,var(--wine),var(--terra))}
 .day-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#fff;line-height:1}
 .day-dow{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:4px}
@@ -160,7 +160,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
 .plan-add-btn{display:flex;align-items:center;gap:6px;width:100%;background:none;border:1px dashed var(--gold-light);border-radius:6px;padding:7px 10px;cursor:pointer;font-size:11.5px;color:var(--gold);transition:all .15s;font-family:'DM Sans',sans-serif}
 .plan-add-btn:hover{background:rgba(196,162,101,.08);border-color:var(--gold)}
 
-/* PLAN PANEL (slide-up from bottom) */
 .plan-panel-bg{position:fixed;inset:0;background:rgba(44,36,32,.35);z-index:150;opacity:0;pointer-events:none;transition:opacity .2s}
 .plan-panel-bg.open{opacity:1;pointer-events:all}
 .plan-panel{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-radius:20px 20px 0 0;border-top:1px solid var(--border);z-index:151;max-height:80vh;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .3s ease}
@@ -172,7 +171,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
 .plan-panel-close:hover{background:var(--wine);color:#fff}
 .plan-panel-body{overflow-y:auto;padding:16px 24px 32px;flex:1}
 
-/* custom input */
 .plan-custom{display:flex;gap:8px;margin-bottom:20px}
 .plan-custom input{flex:1;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);outline:none;transition:border-color .15s}
 .plan-custom input:focus{border-color:var(--gold)}
@@ -180,7 +178,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
 .plan-custom-btn{background:var(--wine);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;transition:background .15s}
 .plan-custom-btn:hover{background:var(--terra)}
 
-/* rec picker categories */
 .plan-cat-title{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin:16px 0 8px}
 .plan-rec-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
 .plan-rec-chip{padding:5px 12px;border-radius:100px;border:1.5px solid var(--border);background:var(--card);font-size:11.5px;color:var(--text);cursor:pointer;transition:all .15s;user-select:none}
@@ -225,6 +222,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
       <div class="chip" data-g="njosette" onclick="selectGuest('njosette',this)"><div class="chip-pip" style="background:var(--njosette)"></div>Ninang Josette & Nate</div>
       <div class="chip" data-g="alan"     onclick="selectGuest('alan',this)"><div class="chip-pip" style="background:var(--alan)"></div>Uncle Alan</div>
       <div class="chip" data-g="eve"      onclick="selectGuest('eve',this)"><div class="chip-pip" style="background:var(--eve)"></div>Eve</div>
+      <div class="chip" data-g="nic"      onclick="selectGuest('nic',this)"><div class="chip-pip" style="background:var(--nic)"></div>Nic</div>
     </div>
   </div>
   <div class="cal-outer"><div class="cal-grid" id="cal-grid"></div></div>
@@ -242,7 +240,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
       <div class="reminder-date" style="font-size:14px;min-width:auto">10:00<small>AM</small></div>
       <div class="reminder-body">
         <div class="reminder-name">Commencement Ceremony</div>
-        <div class="reminder-detail">Fordham University Rose Hill Campus. Transportation from the Thompson Hotel will depart at TBD. If you're making your own way, please plan accordingly.</div>
+        <div class="reminder-detail">Fordham University Rose Hill Campus. Group transportation from the Thompson Hotel departs at <strong>8:30am</strong>. Group transportation from Rose Hill Campus departs at <strong>2:30pm</strong>. If making your own way, please plan accordingly.</div>
       </div>
     </div>
     <div class="reminder-card" style="border-left:3px solid var(--gold)">
@@ -256,7 +254,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
       <div class="reminder-date" style="font-size:14px;min-width:auto">6:30<small>PM</small></div>
       <div class="reminder-body">
         <div class="reminder-name">Graduation Dinner @ CUT</div>
-        <div class="reminder-detail">Transportation from the Thompson Hotel will depart at TBD.</div>
+        <div class="reminder-detail">Group transportation from the Thompson Hotel departs at <strong>6:00pm</strong>.</div>
       </div>
     </div>
   </div>
@@ -267,6 +265,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
     <div class="transport-card"><div class="transport-icon">🚶</div><div class="transport-title">Walking</div><div class="transport-body">NYC is very walkable. Many of our plans are within walking distance of each other.</div></div>
     <div class="transport-card"><div class="transport-icon">🚌</div><div class="transport-title">Bus</div><div class="transport-body">Also $3.00 per ride with tap to pay via OMNY. Good for crosstown trips where the subway doesn't run directly.</div></div>
     <div class="transport-card"><div class="transport-icon">🏟️</div><div class="transport-title">Citi Field (5/15 game)</div><div class="transport-body">Take the 7 train from Times Square / Hudson Yards. About 45–50 min total. $3 each way. Game starts at 7:15pm.</div></div>
+    <div class="transport-card"><div class="transport-icon">🎓</div><div class="transport-title">Graduation Day Transport</div><div class="transport-body">Group transport to Rose Hill: departs hotel at <strong>8:30am</strong>. Return from Rose Hill: departs at <strong>2:30pm</strong>. Group transport to CUT dinner: departs hotel at <strong>6:00pm</strong>.</div></div>
   </div>
 </div>
 </div>
@@ -291,7 +290,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
   </div>
 </div>
 
-<!-- PLAN PANEL -->
 <div class="plan-panel-bg" id="plan-panel-bg" onclick="if(event.target===this)closePlanPanel()">
   <div class="plan-panel">
     <div class="plan-panel-header">
@@ -310,8 +308,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
 </div>
 
 <script>
-// ── DATA ────────────────────────────────────────────────────────
-
 var GUESTS = {
   brooks:   { label:'Brooks Family',         color:'#6B2D3E', days:['511','512','513','514','515','516','517','518'] },
   grandma:  { label:'Grandma',               color:'#A65D4A', days:['514','515','516','517','518'] },
@@ -320,10 +316,10 @@ var GUESTS = {
   njenn:    { label:'Ninang Jenn & Kamea',   color:'#7B5EA7', days:['514','515','516','517','518'] },
   njosette: { label:'Ninang Josette & Nate', color:'#3D7FA8', days:['515','516','517'] },
   alan:     { label:'Uncle Alan',            color:'#4E7A4E', days:['514','515','516','517','518'] },
-  eve:      { label:'Eve',                   color:'#C4727A', days:['512','513','514','515','516','517'] }
+  eve:      { label:'Eve',                   color:'#C4727A', days:['512','513','514','515','516','517'] },
+  nic:      { label:'Nic',                   color:'#D4847A', days:['516'] }
 };
 
-// Guests who get the interactive plan builder
 var PLANNERS = ['brooks','veas','njenn','njosette','alan','eve'];
 
 var DAYS = [
@@ -339,8 +335,8 @@ var DAYS = [
 
 var EVENTS = {
   '511':[
-    { type:'fam',  name:'Brooks Family arrives ~7pm',  guests:['brooks'] },
-    { type:'act',  name:'Check in to Resorts World',   guests:['brooks'] }
+    { type:'fam',  name:'Brooks Family arrives ~7pm', guests:['brooks'] },
+    { type:'act',  name:'Check in to Resorts World',  guests:['brooks'] }
   ],
   '512':[
     { type:'act',  name:'Check in to Park Hyatt Hotel', guests:['brooks'], modal:{ location:'Park Hyatt New York, Midtown' }},
@@ -371,31 +367,31 @@ var EVENTS = {
     { type:'act',  name:'Back to hotel', guests:['brooks'] },
     { type:'act',  name:'Free time', sub:'Check the Recommendations page!', guests:['brooks'], planSlot:'514-free' },
     { type:'meal', name:'Louis Vuitton Cafe', sub:'2:45pm', guests:['njenn','brooks'], modal:{ location:'5th Ave, Midtown', fromHotel:'10 min walk' }},
-    { type:'meal', name:'Bibliothèque', guests:['njenn','brooks'], modal:{ dresscode:'Casual', location:'SoHo', notes:'Drinks & snacks. 25 min train from Louis Vuitton Cafe.' }},
-    { type:'meal', name:'Bibliothèque', guests:['alan'], modal:{ dresscode:'Casual', location:'SoHo', notes:'Drinks & snacks. Optional. 25 min train from Louis Vuitton Cafe.' }},
-    { type:'fam',  name:'✦ Everyone arrives to NYC', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
-    { type:'meal', name:'Catered pizza at hotel', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan', 'eve'], modal:{ notes:'Pizza will be at the hotel. Room number TBD.' }}
+    { type:'meal', name:'Biblioth\u00e8que', guests:['njenn','brooks'], modal:{ dresscode:'Casual', location:'SoHo', notes:'Drinks & snacks. 25 min train from Louis Vuitton Cafe.' }},
+    { type:'meal', name:'Biblioth\u00e8que', guests:['alan'], modal:{ dresscode:'Casual', location:'SoHo', notes:'Drinks & snacks. Optional. 25 min train from Louis Vuitton Cafe.' }},
+    { type:'fam',  name:'\u2736 Everyone arrives to NYC', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
+    { type:'meal', name:'Catered pizza at hotel', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ notes:'Pizza will be at the hotel. Room number TBD.' }}
   ],
   '515':[
     { type:'meal', name:'Hotel Breakfast', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
-    { type:'act',  name:'Pilates class — Tita Jenny', guests:['veas'], modal:{ location:'TBD', fromHotel:'TBD' }},
-    { type:'act',  name:'Pilates class', guests:['eve'], modal:{ location:'TBD', fromHotel:'TBD' }},
+    { type:'act',  name:'Pilates class \u2014 Tita Jenny', guests:['veas'], modal:{ location:'TBD', fromHotel:'TBD' }},
     { type:'act',  name:'Free time', sub:'Check the Recommendations page!', guests:['brooks','veas','njenn','njosette','alan'], planSlot:'515-morning' },
-    { type:'act',  name:'Tour of Fordham University LC',  guests:['brooks','grandma','lolola','alan','eve'], planSlot:'515-morning' },
+    { type:'act',  name:'Tour of Fordham University LC', guests:['brooks','grandma','lolola','alan','eve'], planSlot:'515-morning' },
     { type:'meal', name:'Lunch @ Parm', sub:'12:30pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'Casual', location:'Upper West Side', fromHotel:'11 min Uber · 18 min subway · ~20 min walk' }},
     { type:'act',  name:'Walk through / Tour of Central Park', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
     { type:'act',  name:'Apartment Tour', guests:['veas','njenn','njosette'], modal:{ notes:'Those attending the baseball game are welcome to tour Ava\'s apartment following the Central Park walk.' }},
     { type:'act',  name:'Rest time', guests:['brooks','grandma','lolola','alan','eve'], planSlot:'515-afternoon' },
     { type:'meal', name:'Optional Rooftop Drinks @ Empire Rooftop', sub:'5:00pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'Casual', location:'Columbus Circle', fromHotel:'8 min drive · 15 min walk' }},
     { type:'act',  name:'Apartment Tour', guests:['brooks','grandma','lolola','alan','eve'], modal:{ notes:'Following drinks there will be an apartment tour.' }},
-    { type:'act',  name:'Group 1 departs for baseball game', guests:['veas','njenn','njosette'], modal:{ dresscode:'Casual', location:'Citi Field, Queens', fromHotel:'45–50 min — take the 7 train from Times Square', notes:'Yankees vs. Mets · 7:15pm first pitch.' }},
-    { type:'meal', name:'Dinner @ Showa Era', sub:'6:30pm', guests:['lolola','brooks','alan','eve','grandma'] }
+    { type:'act',  name:'Group 1 departs for baseball game', guests:['veas','njenn','njosette'], modal:{ dresscode:'Casual', location:'Citi Field, Queens', fromHotel:'45\u201350 min \u2014 take the 7 train from Times Square', notes:'Yankees vs. Mets \u00b7 7:15pm first pitch.' }},
+    { type:'meal', name:'Dinner @ Showa Era', sub:'6:30pm', guests:['lolola','brooks','alan','eve','grandma'], modal:{ dresscode:'Casual', location:'East Village', notes:'6:30pm reservation | backup reservation @ PJ Clarke's 7pm' }}
   ],
   '516':[
     { type:'meal',     name:'Hotel Breakfast', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
-    { type:'ceremony', name:'Graduation Ceremony', sub:'10:00am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ location:'Fordham University — Rose Hill Campus', fromHotel:'Transportation from hotel TBD' }},
+    { type:'ceremony', name:'Graduation Ceremony', sub:'10:00am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve','nic'], modal:{ location:'Fordham University \u2014 Rose Hill Campus', notes:'Group transport departs hotel at 8:30am. Return transport departs Rose Hill at 2:30pm.' }},
     { type:'act',  name:'Back to hotel + get ready', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
-    { type:'meal', name:'Graduation Dinner @ CUT', sub:'6:30pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'Dressy attire', location:'CUT by Wolfgang Puck', fromHotel:'Transportation from hotel TBD' }}
+    { type:'meal', name:'Graduation Dinner @ CUT', sub:'6:30pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve','nic'], modal:{ dresscode:'Dressy attire', location:'CUT by Wolfgang Puck', notes:'Group transport departs hotel at 6:00pm.' }},
+    { type:'night', name:'Drinks @ Tigre', sub:'10:00pm', guests:['njenn','brooks','eve','nic'], modal:{ dresscode:'Dressy attire', location:'Midtown', notes:'Following graduation dinner. Kamea (Ninang Jenn & Kamea), Ava (Brooks Family), Eve, and Nic.' }}
   ],
   '517':[
     { type:'meal', name:'Brunch Cruise', sub:'12:30pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'TBD', location:'TBD', fromHotel:'Cab to pier', notes:'Board 30 min before departure.' }},
@@ -403,16 +399,16 @@ var EVENTS = {
     { type:'act',  name:'Activity TBD', guests:['eve'], planSlot:'517-afternoon' },
     { type:'act',  name:'One World Trade', guests:['grandma','lolola','alan'], modal:{ dresscode:'Casual', location:'Lower Manhattan' }},
     { type:'act',  name:'One World Trade', guests:['brooks'], modal:{ dresscode:'Casual', location:'Lower Manhattan', notes:'Dad attending. Ava + Mom: TBD activity.' }},
-    { type:'act',  name:'SoHo · Stussy Store · Shopping', guests:['veas'] },
-    { type:'meal', name:'Dinner @ Jack\u0027s Wife Frieda', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'Casual', location:'Soho', notes:'Please confirm attendace, current reservation 10' } },
-    { type:'fam',  name:'Ninang Josette & Nate depart 🌙', guests:['njosette'] }
+    { type:'act',  name:'SoHo \u00b7 Stussy Store \u00b7 Shopping', guests:['veas'] },
+    { type:'meal', name:'Dinner @ Jack\u0027s Wife Frieda', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'Casual', location:'SoHo', notes:'Please confirm attendance. Current reservation for 10.' }},
+    { type:'fam',  name:'Ninang Josette & Nate depart \uD83C\uDF19', guests:['njosette'] }
   ],
   '518':[
-    { type:'meal', name:'Breakfast @ Bubby\'s', sub:'10:00am', guests:['brooks'], modal:{ dresscode:'Casual', location:'Tribeca', fromHotel:'25 min train from hotel' }},
+    { type:'meal', name:'Breakfast @ Bubby\u0027s', sub:'10:00am', guests:['brooks'], modal:{ dresscode:'Casual', location:'Tribeca', fromHotel:'25 min train from hotel' }},
     { type:'act',  name:'Best Friends Animal Shelter', guests:['brooks'], modal:{ dresscode:'Casual', location:'West Village', fromHotel:'10 min walk' }},
-    { type:'meal', name:'Mimi\'s', guests:['brooks'], modal:{ dresscode:'Casual', location:'West Village', fromHotel:'5 min walk' }},
-    { type:'fam',  name:'Fly home! 🌙', guests:['grandma','lolola','veas','njenn','alan'] },
-    { type:'fam',  name:'Brooks Family departs 🌙', guests:['brooks'] }
+    { type:'meal', name:'Mimi\u0027s', guests:['brooks'], modal:{ dresscode:'Casual', location:'West Village', fromHotel:'5 min walk' }},
+    { type:'fam',  name:'Fly home! \uD83C\uDF19', guests:['grandma','lolola','veas','njenn','alan'] },
+    { type:'fam',  name:'Brooks Family departs \uD83C\uDF19', guests:['brooks'] }
   ]
 };
 
@@ -442,7 +438,7 @@ var RECS = [
     { name:'NBA Store', loc:'Midtown', dist:'10 min walk from hotel' },
     { name:'Stussy', loc:'SoHo', dist:'~20 min subway' }
   ]},
-  { cat:'Drinks — Casual', items:[
+  { cat:'Drinks \u2014 Casual', items:[
     { name:'Central Park Tavern', loc:'Near Columbus Circle', dist:'5 min walk from hotel' },
     { name:'Red Stache', loc:'Hell\'s Kitchen', dist:'8 min walk from hotel' },
     { name:'Empire Rooftop', loc:'Near Columbus Circle', dist:'8 min drive · 15 min walk' },
@@ -450,8 +446,8 @@ var RECS = [
     { name:'Bar Pisellino', loc:'West Village', dist:'~20 min subway' },
     { name:'Lelabar', loc:'West Village', dist:'~20 min subway' }
   ]},
-  { cat:'Drinks — Upscale', items:[
-    { name:'Bibliothèque', loc:'SoHo', dist:'~20 min cab' },
+  { cat:'Drinks \u2014 Upscale', items:[
+    { name:'Biblioth\u00e8que', loc:'SoHo', dist:'~20 min cab' },
     { name:'Bar Bonobo', loc:'Chelsea', dist:'~15 min cab' },
     { name:'Jac\'s on Bond', loc:'NoHo', dist:'~20 min subway' },
     { name:'Armada', loc:'LES', dist:'~25 min subway' },
@@ -478,61 +474,45 @@ var RECS = [
     { name:'West Village', loc:'Charming & walkable', dist:'~20 min subway' },
     { name:'SoHo', loc:'Shopping, cobblestones, galleries', dist:'~20 min cab' },
     { name:'Chinatown', loc:'Food, markets, Canal St', dist:'~25 min subway' },
-    { name:'Koreatown (K-Town)', loc:'32nd St · food & nightlife', dist:'10 min walk from hotel' },
+    { name:'Koreatown (K-Town)', loc:'32nd St \u00b7 food & nightlife', dist:'10 min walk from hotel' },
     { name:'Brooklyn Heights', loc:'Promenade views of Manhattan', dist:'~35 min subway' },
-    { name:'DUMBO', loc:'Brooklyn · waterfront & bridge views', dist:'~40 min subway' },
+    { name:'DUMBO', loc:'Brooklyn \u00b7 waterfront & bridge views', dist:'~40 min subway' },
     { name:'Hell\'s Kitchen', loc:'Great restaurant strip', dist:'10 min walk from hotel' }
   ]}
 ];
 
-// ── SUPABASE SYNC ────────────────────────────────────────────────
-
+// ── SUPABASE ─────────────────────────────────────────────────────
 var SUPABASE_URL = 'https://wspvevnfzrwjdggpnqfi.supabase.co';
 var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzcHZldm5menJ3amRnZ3BucWZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyNDI4MDgsImV4cCI6MjA5MjgxODgwOH0.d9rEQSNOoJC59SD2SwPQFJThPZreT4h0iTUz69Vz1YY';
 
 function sbHeaders() {
-  return {
-    'Content-Type': 'application/json',
-    'apikey': SUPABASE_KEY,
-    'Authorization': 'Bearer ' + SUPABASE_KEY
-  };
+  return { 'Content-Type':'application/json', 'apikey':SUPABASE_KEY, 'Authorization':'Bearer '+SUPABASE_KEY };
 }
-
-function planId(guest, slot) { return guest + '_' + slot; }
-
-// Local cache so UI stays fast
+function planId(guest, slot) { return guest+'_'+slot; }
 var planCache = {};
-
-function getPlans(guest, slot) {
-  var key = planId(guest, slot);
-  return planCache[key] || [];
-}
-
+function getPlans(guest, slot) { return planCache[planId(guest,slot)] || []; }
 function savePlans(guest, slot, plans) {
-  var key = planId(guest, slot);
-  planCache[key] = plans;
-  // Push to Supabase in background
-  fetch(SUPABASE_URL + '/rest/v1/plans', {
-    method: 'POST',
-    headers: Object.assign({}, sbHeaders(), { 'Prefer': 'resolution=merge-duplicates' }),
-    body: JSON.stringify({ id: key, guest: guest, slot: slot, data: plans, updated_at: new Date().toISOString() })
-  }).catch(function(e) { console.warn('Sync failed:', e); });
+  planCache[planId(guest,slot)] = plans;
+  fetch(SUPABASE_URL+'/rest/v1/plans', {
+    method:'POST',
+    headers:Object.assign({},sbHeaders(),{'Prefer':'resolution=merge-duplicates'}),
+    body:JSON.stringify({id:planId(guest,slot),guest:guest,slot:slot,data:plans,updated_at:new Date().toISOString()})
+  }).catch(function(e){console.warn('Sync failed:',e);});
 }
-
 function loadAllPlans(guest, callback) {
-  fetch(SUPABASE_URL + '/rest/v1/plans?guest=eq.' + guest, {
-    headers: sbHeaders()
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(rows) {
+  fetch(SUPABASE_URL+'/rest/v1/plans?guest=eq.'+guest, {headers:sbHeaders()})
+  .then(function(r){return r.json();})
+  .then(function(rows){
     if (!Array.isArray(rows)) return;
-    rows.forEach(function(row) {
-      planCache[row.id] = row.data || [];
-    });
+    rows.forEach(function(row){ planCache[row.id]=row.data||[]; });
     if (callback) callback();
   })
-  .catch(function(e) { console.warn('Load failed:', e); if (callback) callback(); });
+  .catch(function(e){console.warn('Load failed:',e);if(callback)callback();});
 }
+
+// ── PLAN PANEL ───────────────────────────────────────────────────
+var currentGuest = 'all';
+var currentPlanSlot = null;
 
 function openPlanPanel(guest, slot, dayLabel) {
   currentPlanSlot = slot;
@@ -542,188 +522,158 @@ function openPlanPanel(guest, slot, dayLabel) {
   renderRecPicker(guest, slot);
   document.getElementById('plan-panel-bg').classList.add('open');
 }
-
 function closePlanPanel() {
   document.getElementById('plan-panel-bg').classList.remove('open');
-  loadAllPlans(currentGuest, function() { buildCalendar(currentGuest); });
+  loadAllPlans(currentGuest, function(){ buildCalendar(currentGuest); });
 }
-
 function renderRecPicker(guest, slot) {
   var plans = getPlans(guest, slot);
   var addedNames = plans.map(function(p){ return p.name; });
   var html = '';
   for (var i = 0; i < RECS.length; i++) {
     var cat = RECS[i];
-    html += '<div class="plan-cat-title">' + cat.cat + '</div><div class="plan-rec-chips">';
+    html += '<div class="plan-cat-title">'+cat.cat+'</div><div class="plan-rec-chips">';
     for (var j = 0; j < cat.items.length; j++) {
       var item = cat.items[j];
       var isAdded = addedNames.indexOf(item.name) !== -1;
-      html += '<div class="plan-rec-chip' + (isAdded ? ' added' : '') + '" onclick="toggleRecPlan(\'' + guest + '\',\'' + slot + '\',' + i + ',' + j + ',this)">' +
-        item.name +
-        (item.loc ? '<span style="opacity:.6;font-size:10px;display:block;margin-top:1px">' + item.loc + '</span>' : '') +
+      html += '<div class="plan-rec-chip'+(isAdded?' added':'')+'" onclick="toggleRecPlan(\''+guest+'\',\''+slot+'\','+i+','+j+',this)">'+
+        item.name+(item.loc?'<span style="opacity:.6;font-size:10px;display:block;margin-top:1px">'+item.loc+'</span>':'')+
         '</div>';
     }
     html += '</div>';
   }
   document.getElementById('plan-rec-list').innerHTML = html;
 }
-
 function toggleRecPlan(guest, slot, catIdx, itemIdx, el) {
   var item = RECS[catIdx].items[itemIdx];
   var plans = getPlans(guest, slot);
   var idx = -1;
   for (var i = 0; i < plans.length; i++) { if (plans[i].name === item.name) { idx = i; break; } }
   if (idx === -1) {
-    plans.push({ name: item.name, loc: item.loc || '', dist: item.dist || '', custom: false });
+    plans.push({name:item.name,loc:item.loc||'',dist:item.dist||'',custom:false});
     el.classList.add('added');
   } else {
-    plans.splice(idx, 1);
+    plans.splice(idx,1);
     el.classList.remove('added');
   }
   savePlans(guest, slot, plans);
   renderPlanSlot(guest, slot);
 }
-
 function addCustomPlan() {
   var input = document.getElementById('plan-custom-input');
   var val = input.value.trim();
   if (!val) return;
   var plans = getPlans(currentGuest, currentPlanSlot);
-  plans.push({ name: val, custom: true });
+  plans.push({name:val,custom:true});
   savePlans(currentGuest, currentPlanSlot, plans);
   input.value = '';
   renderRecPicker(currentGuest, currentPlanSlot);
   renderPlanSlot(currentGuest, currentPlanSlot);
 }
-
 function removePlan(guest, slot, idx) {
   var plans = getPlans(guest, slot);
-  plans.splice(idx, 1);
+  plans.splice(idx,1);
   savePlans(guest, slot, plans);
   renderPlanSlot(guest, slot);
 }
-
 function renderPlanSlot(guest, slot) {
-  var el = document.getElementById('planslot-' + slot);
+  var el = document.getElementById('planslot-'+slot);
   if (!el) return;
   var plans = getPlans(guest, slot);
-  var itemsHtml = '';
+  var html = '';
   for (var i = 0; i < plans.length; i++) {
     var p = plans[i];
-    var details = '';
-    if (p.loc) details += '<span style="font-size:10px;color:var(--muted);display:block">' + p.loc + (p.dist ? ' · ' + p.dist : '') + '</span>';
-    itemsHtml += '<div class="plan-item"><div><span class="plan-item-name">' + p.name + '</span>' + details + '</div><button class="plan-item-remove" onclick="removePlan(\'' + guest + '\',\'' + slot + '\',' + i + ')">×</button></div>';
+    var details = p.loc ? '<span style="font-size:10px;color:var(--muted);display:block">'+p.loc+(p.dist?' · '+p.dist:'')+'</span>' : '';
+    html += '<div class="plan-item"><div><span class="plan-item-name">'+p.name+'</span>'+details+'</div><button class="plan-item-remove" onclick="removePlan(\''+guest+'\',\''+slot+'\','+i+')">×</button></div>';
   }
-  el.querySelector('.plan-items').innerHTML = itemsHtml;
+  el.querySelector('.plan-items').innerHTML = html;
 }
 
-// ── PLAN BUILDER STATE ───────────────────────────────────────────
-
-var currentGuest = 'all';
-var currentPlanSlot = null;
-
-// ── FILTER ──────────────────────────────────────────────────────
-
+// ── FILTER ───────────────────────────────────────────────────────
 function selectGuest(g, el) {
-  document.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
+  document.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('active'); });
   el.classList.add('active');
   currentGuest = g;
-  // Load this guest's plans from Supabase, then render
   if (PLANNERS.indexOf(g) !== -1) {
-    buildCalendar(g); // show immediately with cached data
-    loadAllPlans(g, function() { buildCalendar(g); }); // re-render once synced
+    buildCalendar(g);
+    loadAllPlans(g, function(){ buildCalendar(g); });
   } else {
     buildCalendar(g);
   }
 }
 
-// ── CALENDAR ────────────────────────────────────────────────────
-
+// ── CALENDAR ─────────────────────────────────────────────────────
 function buildCalendar(g) {
   var grid = document.getElementById('cal-grid');
   grid.innerHTML = '';
   var isAll = (g === 'all');
-  var activeDays = isAll ? DAYS : DAYS.filter(function(d) { return GUESTS[g].days.indexOf(d.id) !== -1; });
+  var activeDays = isAll ? DAYS : DAYS.filter(function(d){ return GUESTS[g].days.indexOf(d.id) !== -1; });
   var isPlanner = PLANNERS.indexOf(g) !== -1;
 
   activeDays.forEach(function(day) {
     var allEv = EVENTS[day.id] || [];
-    var visible = isAll ? allEv : allEv.filter(function(ev) { return ev.guests.indexOf(g) !== -1; });
+    var visible = isAll ? allEv : allEv.filter(function(ev){ return ev.guests.indexOf(g) !== -1; });
 
     var col = document.createElement('div');
     col.className = 'day-col';
-    col.innerHTML = '<div class="day-head' + (day.grad ? ' is-grad' : '') + '"><div class="day-num">' + day.date + '</div><div class="day-dow">' + day.dow + '</div></div>';
+    col.innerHTML = '<div class="day-head'+(day.grad?' is-grad':'')+'"><div class="day-num">'+day.date+'</div><div class="day-dow">'+day.dow+'</div></div>';
 
-    visible.forEach(function(ev) {
-      col.appendChild(makeCard(ev, day, g, isPlanner));
-    });
-
+    visible.forEach(function(ev){ col.appendChild(makeCard(ev,day,g,isPlanner)); });
     grid.appendChild(col);
   });
 }
 
 function makeCard(ev, day, g, isPlanner) {
   var el = document.createElement('div');
-
   if (ev.type === 'ceremony') {
     el.className = 'ev ceremony';
-    el.innerHTML = '<div class="ceremony-icon">✦</div><div class="ceremony-title">' + ev.name + '</div>' + (ev.sub ? '<div class="ev-time" style="text-align:center;margin-top:6px">' + ev.sub + '</div>' : '') + (ev.modal ? '<div class="ev-hint">tap for details</div>' : '');
-    if (ev.modal) el.onclick = function() { openModal(ev, day); };
-
+    el.innerHTML = '<div class="ceremony-icon">✦</div><div class="ceremony-title">'+ev.name+'</div>'+(ev.sub?'<div class="ev-time" style="text-align:center;margin-top:6px">'+ev.sub+'</div>':'')+(ev.modal?'<div class="ev-hint">tap for details</div>':'');
+    if (ev.modal) el.onclick = function(){ openModal(ev,day); };
   } else if (ev.type === 'options') {
     el.className = 'ev options-card';
-    el.innerHTML = '<div class="opts-label">' + ev.name + '</div>' + ev.opts.map(function(o) { return '<div class="opt-item">' + o + '</div>'; }).join('');
-
+    el.innerHTML = '<div class="opts-label">'+ev.name+'</div>'+ev.opts.map(function(o){ return '<div class="opt-item">'+o+'</div>'; }).join('');
   } else if (ev.planSlot && isPlanner) {
-    // Free time slot with plan builder
     var slot = ev.planSlot;
     var plans = getPlans(g, slot);
     var itemsHtml = '';
     for (var i = 0; i < plans.length; i++) {
       var p = plans[i];
-      var details = p.loc ? '<span style="font-size:10px;color:var(--muted);display:block">' + p.loc + (p.dist ? ' · ' + p.dist : '') + '</span>' : '';
-      itemsHtml += '<div class="plan-item"><div><span class="plan-item-name">' + p.name + '</span>' + details + '</div><button class="plan-item-remove" onclick="removePlan(\'' + g + '\',\'' + slot + '\',' + i + ')">×</button></div>';
+      var details = p.loc ? '<span style="font-size:10px;color:var(--muted);display:block">'+p.loc+(p.dist?' · '+p.dist:'')+'</span>' : '';
+      itemsHtml += '<div class="plan-item"><div><span class="plan-item-name">'+p.name+'</span>'+details+'</div><button class="plan-item-remove" onclick="removePlan(\''+g+'\',\''+slot+'\','+i+')">×</button></div>';
     }
-    var dayLabel = day.date + ' · ' + day.dow + ' free time';
+    var dayLabel = day.date+' · '+day.dow+' free time';
     el.className = 'plan-slot';
-    el.id = 'planslot-' + slot;
-    el.innerHTML = '<div class="plan-slot-label">✦ Your free time</div>' +
-      '<div class="plan-items">' + itemsHtml + '</div>' +
-      '<button class="plan-add-btn" onclick="openPlanPanel(\'' + g + '\',\'' + slot + '\',\'' + dayLabel + '\')">+ Add plans</button>';
-
+    el.id = 'planslot-'+slot;
+    el.innerHTML = '<div class="plan-slot-label">✦ Your free time</div><div class="plan-items">'+itemsHtml+'</div><button class="plan-add-btn" onclick="openPlanPanel(\''+g+'\',\''+slot+'\',\''+dayLabel+'\')">+ Add plans</button>';
   } else {
-    el.className = 'ev ' + ev.type;
+    el.className = 'ev '+ev.type;
     var isTime = ev.sub && /^\d/.test(ev.sub);
-    el.innerHTML = (isTime ? '<div class="ev-time">' + ev.sub + '</div>' : '') +
-      '<div class="ev-name">' + ev.name + '</div>' +
-      (ev.sub && !isTime ? '<div class="ev-sub-note">' + ev.sub + '</div>' : '') +
-      (ev.res ? '<span class="ev-res">' + ev.res + '</span>' : '') +
-      (ev.modal ? '<div class="ev-hint">tap for details</div>' : '');
-    if (ev.modal) el.onclick = function() { openModal(ev, day); };
+    el.innerHTML = (isTime?'<div class="ev-time">'+ev.sub+'</div>':'')+
+      '<div class="ev-name">'+ev.name+'</div>'+
+      (ev.sub&&!isTime?'<div class="ev-sub-note">'+ev.sub+'</div>':'')+
+      (ev.res?'<span class="ev-res">'+ev.res+'</span>':'')+
+      (ev.modal?'<div class="ev-hint">tap for details</div>':'');
+    if (ev.modal) el.onclick = function(){ openModal(ev,day); };
   }
-
   return el;
 }
 
-// ── RECS ────────────────────────────────────────────────────────
-
+// ── RECS ─────────────────────────────────────────────────────────
 function buildRecs() {
-  document.getElementById('recs-grid').innerHTML = RECS.map(function(c) {
-    return '<div class="rec-cat"><div class="rec-cat-title">' + c.cat + '</div>' +
-      c.items.map(function(i) {
-        return '<div class="rec-row"><span class="rec-name">' + i.name + '</span><span class="rec-note">' + (i.loc || '') + '</span></div>';
-      }).join('') + '</div>';
+  document.getElementById('recs-grid').innerHTML = RECS.map(function(c){
+    return '<div class="rec-cat"><div class="rec-cat-title">'+c.cat+'</div>'+
+      c.items.map(function(i){ return '<div class="rec-row"><span class="rec-name">'+i.name+'</span><span class="rec-note">'+(i.loc||'')+'</span></div>'; }).join('')+
+      '</div>';
   }).join('');
 }
 
 // ── MODAL ────────────────────────────────────────────────────────
-
 function openModal(ev, day) {
   var m = ev.modal;
-  var typeMap = { meal:'Food & Drink', act:'Activity', night:'Nightlife', special:'Special', fam:'Family', ceremony:'Ceremony' };
-  document.getElementById('m-type').textContent = (typeMap[ev.type] || ev.type).toUpperCase();
+  var typeMap = {meal:'Food & Drink',act:'Activity',night:'Nightlife',special:'Special',fam:'Family',ceremony:'Ceremony'};
+  document.getElementById('m-type').textContent = (typeMap[ev.type]||ev.type).toUpperCase();
   document.getElementById('m-title').textContent = ev.name;
-  document.getElementById('m-day').textContent = day.date + ' · ' + day.dow;
+  document.getElementById('m-day').textContent = day.date+' · '+day.dow;
   var f = document.getElementById('m-fields');
   f.innerHTML = '';
   if (ev.sub)      f.innerHTML += mf('Time', ev.sub);
@@ -733,26 +683,22 @@ function openModal(ev, day) {
   if (m.notes)     f.innerHTML += mf('Notes', m.notes);
   document.getElementById('modal-bg').classList.add('open');
 }
-
 function mf(label, val, em) {
-  return '<div><div class="mf-label">' + label + '</div><div class="mf-val' + (em ? ' em' : '') + '">' + val + '</div></div>';
+  return '<div><div class="mf-label">'+label+'</div><div class="mf-val'+(em?' em':'')+'">'+ val+'</div></div>';
 }
-
 function closeModal() { document.getElementById('modal-bg').classList.remove('open'); }
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeModal(); closePlanPanel(); } });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape'){closeModal();closePlanPanel();} });
 
 // ── NAV ──────────────────────────────────────────────────────────
-
 function showPage(id) {
-  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-  document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
-  document.getElementById('page-' + id).classList.add('active');
-  document.querySelector('[data-page="' + id + '"]').classList.add('active');
-  window.scrollTo(0, 0);
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelector('[data-page="'+id+'"]').classList.add('active');
+  window.scrollTo(0,0);
 }
 
 // ── INIT ─────────────────────────────────────────────────────────
-
 buildCalendar('all');
 buildRecs();
 </script>
