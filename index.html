@@ -213,12 +213,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
     <div class="hero-rule"></div>
   </div>
   <div id="weather-wrap" style="margin:0 0 32px;text-align:center">
-    <div id="weather-now" style="display:inline-flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:100px;padding:10px 22px;margin-bottom:16px;font-size:13px;color:var(--text)">
+    <div id="weather-now" style="display:inline-flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:100px;padding:10px 22px;font-size:13px;color:var(--text)">
       <span id="w-icon" style="font-size:22px">⏳</span>
       <span id="w-temp" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--wine)">--</span>
       <span id="w-desc" style="color:var(--muted);font-weight:300">Loading NYC weather...</span>
     </div>
-    <div id="weather-strip" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"></div>
   </div>
     <div class="filter-label">I am —</div>
     <div class="chips">
@@ -242,6 +241,10 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
   <div class="page-title">Important <em>Information</em></div>
   <p class="page-sub">Everything you need to know for graduation week</p>
   <div class="page-rule"></div>
+  <div class="section-heading" style="margin-bottom:20px">🌤️ NYC Weather — May 11–18</div>
+  <div id="weather-strip-remind" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:48px">
+    <div style="color:var(--muted);font-size:13px;font-weight:300;padding:12px 0">Loading forecast...</div>
+  </div>
   <div class="section-heading" style="margin-bottom:20px">🎓 Graduation Day — Saturday, May 16</div>
   <div class="reminders-grid" style="margin-bottom:48px">
     <div class="reminder-card" style="border-left:3px solid var(--gold)">
@@ -774,7 +777,6 @@ var TRIP_DAYS = ['5/11','5/12','5/13','5/14','5/15','5/16','5/17','5/18'];
 var TRIP_LABELS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun','Mon'];
 
 function loadWeather() {
-  // NYC coords, daily forecast for May 11-18 + current conditions
   var url = 'https://api.open-meteo.com/v1/forecast?latitude=40.7580&longitude=-73.9855' +
     '&current=temperature_2m,weather_code' +
     '&daily=weather_code,temperature_2m_max,temperature_2m_min' +
@@ -784,15 +786,16 @@ function loadWeather() {
   fetch(url)
     .then(function(r){ return r.json(); })
     .then(function(d){
-      // Current weather
+      // Current weather pill
       var cur = d.current;
       var code = cur.weather_code;
-      document.getElementById('w-icon').textContent = WX_CODES[code] || '🌡️';
-      document.getElementById('w-temp').textContent = Math.round(cur.temperature_2m) + '°F';
-      document.getElementById('w-desc').textContent = (WX_DESC[code] || 'NYC') + ' · New York City';
+      document.getElementById('w-icon').textContent = WX_CODES[code] || '\uD83C\uDF21\uFE0F';
+      document.getElementById('w-temp').textContent = Math.round(cur.temperature_2m) + '\u00B0F';
+      document.getElementById('w-desc').textContent = (WX_DESC[code] || 'NYC') + ' \u00B7 New York City';
 
-      // Week strip
-      var strip = document.getElementById('weather-strip');
+      // Week strip on Important Info page
+      var strip = document.getElementById('weather-strip-remind');
+      if (!strip) return;
       strip.innerHTML = '';
       var dates = d.daily.time;
       for (var i = 0; i < dates.length && i < 8; i++) {
@@ -800,12 +803,12 @@ function loadWeather() {
         var hi = Math.round(d.daily.temperature_2m_max[i]);
         var lo = Math.round(d.daily.temperature_2m_min[i]);
         var card = document.createElement('div');
-        card.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;min-width:64px;text-align:center;flex-shrink:0';
+        card.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;min-width:72px;text-align:center;flex-shrink:0';
         card.innerHTML =
           '<div style="font-family:\'DM Mono\',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">'+TRIP_LABELS[i]+'<br>'+TRIP_DAYS[i]+'</div>'+
-          '<div style="font-size:22px;margin:4px 0">'+(WX_CODES[wcode]||'🌡️')+'</div>'+
-          '<div style="font-size:12px;font-weight:500;color:var(--wine)">'+hi+'°</div>'+
-          '<div style="font-size:11px;color:var(--muted)">'+lo+'°</div>';
+          '<div style="font-size:24px;margin:4px 0">'+(WX_CODES[wcode]||'\uD83C\uDF21\uFE0F')+'</div>'+
+          '<div style="font-size:12px;font-weight:500;color:var(--wine)">'+hi+'\u00B0</div>'+
+          '<div style="font-size:11px;color:var(--muted)">'+lo+'\u00B0</div>';
         strip.appendChild(card);
       }
     })
