@@ -212,7 +212,14 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
     <p class="hero-sub">Select your name to see your schedule</p>
     <div class="hero-rule"></div>
   </div>
-  <div class="filter-wrap">
+  <div id="weather-wrap" style="margin:0 0 32px;text-align:center">
+    <div id="weather-now" style="display:inline-flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:100px;padding:10px 22px;margin-bottom:16px;font-size:13px;color:var(--text)">
+      <span id="w-icon" style="font-size:22px">⏳</span>
+      <span id="w-temp" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--wine)">--</span>
+      <span id="w-desc" style="color:var(--muted);font-weight:300">Loading NYC weather...</span>
+    </div>
+    <div id="weather-strip" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"></div>
+  </div>
     <div class="filter-label">I am —</div>
     <div class="chips">
       <div class="chip" data-g="brooks"   onclick="selectGuest('brooks',this)"><div class="chip-pip" style="background:var(--brooks)"></div>Brooks Family</div>
@@ -274,7 +281,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
     <div class="transport-card">
       <div class="transport-icon">🛒</div>
       <div class="transport-title">Morton Williams</div>
-      <div class="transport-body">Full-service supermarket just a few doors down from the hotel if you exit to 57th st through Parker's. Great for snacks, drinks, deli, prepared foods, and anything you forgot to pack. Two-floor supermarket — ground floor has the deli, salad bar, prepared foods and bakery; upstairs has seating.<br><br><strong>Address:</strong> 140 W 57th St<br><strong>Hours:</strong> Open 24 hours</div>
+      <div class="transport-body">Full-service supermarket right across the street — great for snacks, drinks, deli, prepared foods, and anything you forgot to pack. Two-floor supermarket — ground floor has the deli, salad bar, prepared foods and bakery; upstairs has seating.<br><br><strong>Address:</strong> 140 W 57th St<br><strong>Hours:</strong> Open 24 hours</div>
     </div>
     <div class="transport-card">
       <div class="transport-icon">💊</div>
@@ -427,8 +434,8 @@ var EVENTS = {
   '516':[
     { type:'meal', name:'Hotel Breakfast @ Parker\u0027s', sub:'6:30\u201311am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ location:'Parker\u0027s, hotel lobby', notes:'Choose your own time — open 6:30\u201311am.' }},
     { type:'transportation', name:'Group Transportation to Rose Hill', sub:'8:20am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ notes:'Please be ready by 8:20am. Transportation departs promptly at 8:30am.' }},
-    { type:'ceremony', name:'Graduation Ceremony', sub:'10:00am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve','nic'], modal:{ dresscode: 'Business Casual', location:'Fordham University \u2014 Rose Hill Campus', notes:'Group transport departs hotel at 8:30am. Return transport departs Rose Hill at 2:30pm.' }},
-    { type:'transportation', name:'Group Transportation from Rose Hill', sub:'2:30pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ notes:'Transportation departs at 2:30pm.' }},
+    { type:'ceremony', name:'Graduation Ceremony', sub:'10:00am', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve','nic'], modal:{ dresscode:'Business Casual', location:'Fordham University \u2014 Rose Hill Campus', notes:'Group transport departs hotel at 8:30am. Return transport departs Rose Hill at 2:30pm.' }},
+    { type:'transportation', name:'Group Transportation from Rose Hill', sub:'2:30pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ notes:'Please be at the Walsh Gate by 2:20pm. Transportation departs at 2:30pm.' }},
     { type:'act',  name:'Back to hotel + get ready', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'] },
     { type:'transportation', name:'Group Transportation to CUT', sub:'5:50pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve','nic'], modal:{ notes:'Please be ready in the hotel lobby by 5:50pm. Transportation departs promptly at 6:00pm.' }},
     { type:'meal', name:'Graduation Dinner @ CUT', sub:'6:30pm', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve','nic'], modal:{ dresscode:'Dressy attire', location:'CUT by Wolfgang Puck', notes:'Group transport departs hotel at 6:00pm.' }},
@@ -440,7 +447,7 @@ var EVENTS = {
     { type:'meal', name:'Brunch Cruise', sub:'12:00pm boarding', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'Smart Casual', notes:'Board at 12:00pm.' }},
     { type:'act',  name:'Free afternoon', sub:'Check the Recommendations page!', guests:['veas','njenn','njosette','alan'], planSlot:'517-afternoon' },
     { type:'act',  name:'Activity TBD', guests:['eve'], planSlot:'517-afternoon' },
-    { type:'act',  name:'One World Trade', guests:['brooks', 'lolola', 'grandma'], modal:{ dresscode:'Casual', location:'Lower Manhattan', notes:'Dad attending. Ava + Mom: TBD activity.' }},
+    { type:'act',  name:'One World Trade', guests:['brooks','lolola','grandma'], modal:{ dresscode:'Casual', location:'Lower Manhattan', notes:'Dad attending. Ava + Mom: TBD activity.' }},
     { type:'meal', name:'Optional Group Dinner', guests:['brooks','grandma','lolola','veas','njenn','njosette','alan','eve'], modal:{ dresscode:'Casual', location:'SoHo', notes:'Please confirm attendance. Current reservation for 10.' }},
     { type:'fam',  name:'Ninang Josette & Nate depart \uD83C\uDF19', guests:['njosette'] }
   ],
@@ -740,6 +747,74 @@ function showPage(id) {
   document.querySelector('[data-page="'+id+'"]').classList.add('active');
   window.scrollTo(0,0);
 }
+
+// ── WEATHER ──────────────────────────────────────────────────────
+
+var WX_CODES = {
+  0:'☀️',1:'🌤️',2:'⛅',3:'☁️',
+  45:'🌫️',48:'🌫️',
+  51:'🌦️',53:'🌦️',55:'🌧️',
+  61:'🌧️',63:'🌧️',65:'🌧️',
+  71:'🌨️',73:'🌨️',75:'❄️',
+  80:'🌦️',81:'🌧️',82:'⛈️',
+  95:'⛈️',96:'⛈️',99:'⛈️'
+};
+
+var WX_DESC = {
+  0:'Clear sky',1:'Mainly clear',2:'Partly cloudy',3:'Overcast',
+  45:'Fog',48:'Icy fog',
+  51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',
+  61:'Light rain',63:'Rain',65:'Heavy rain',
+  71:'Light snow',73:'Snow',75:'Heavy snow',
+  80:'Showers',81:'Rain showers',82:'Heavy showers',
+  95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'
+};
+
+var TRIP_DAYS = ['5/11','5/12','5/13','5/14','5/15','5/16','5/17','5/18'];
+var TRIP_LABELS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun','Mon'];
+
+function loadWeather() {
+  // NYC coords, daily forecast for May 11-18 + current conditions
+  var url = 'https://api.open-meteo.com/v1/forecast?latitude=40.7580&longitude=-73.9855' +
+    '&current=temperature_2m,weather_code' +
+    '&daily=weather_code,temperature_2m_max,temperature_2m_min' +
+    '&temperature_unit=fahrenheit&timezone=America%2FNew_York' +
+    '&start_date=2026-05-11&end_date=2026-05-18';
+
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      // Current weather
+      var cur = d.current;
+      var code = cur.weather_code;
+      document.getElementById('w-icon').textContent = WX_CODES[code] || '🌡️';
+      document.getElementById('w-temp').textContent = Math.round(cur.temperature_2m) + '°F';
+      document.getElementById('w-desc').textContent = (WX_DESC[code] || 'NYC') + ' · New York City';
+
+      // Week strip
+      var strip = document.getElementById('weather-strip');
+      strip.innerHTML = '';
+      var dates = d.daily.time;
+      for (var i = 0; i < dates.length && i < 8; i++) {
+        var wcode = d.daily.weather_code[i];
+        var hi = Math.round(d.daily.temperature_2m_max[i]);
+        var lo = Math.round(d.daily.temperature_2m_min[i]);
+        var card = document.createElement('div');
+        card.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 12px;min-width:64px;text-align:center;flex-shrink:0';
+        card.innerHTML =
+          '<div style="font-family:\'DM Mono\',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:4px">'+TRIP_LABELS[i]+'<br>'+TRIP_DAYS[i]+'</div>'+
+          '<div style="font-size:22px;margin:4px 0">'+(WX_CODES[wcode]||'🌡️')+'</div>'+
+          '<div style="font-size:12px;font-weight:500;color:var(--wine)">'+hi+'°</div>'+
+          '<div style="font-size:11px;color:var(--muted)">'+lo+'°</div>';
+        strip.appendChild(card);
+      }
+    })
+    .catch(function(){
+      document.getElementById('w-desc').textContent = 'Weather unavailable';
+    });
+}
+
+loadWeather();
 
 // ── INIT ─────────────────────────────────────────────────────────
 buildCalendar('all');
