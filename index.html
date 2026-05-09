@@ -214,11 +214,13 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
   </div>
   <div id="weather-wrap" style="margin:0 0 32px;text-align:center">
     <div id="weather-now" style="display:inline-flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:100px;padding:10px 22px;font-size:13px;color:var(--text)">
+      <span style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)">Today</span>
       <span id="w-icon" style="font-size:22px">⏳</span>
       <span id="w-temp" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--wine)">--</span>
       <span id="w-desc" style="color:var(--muted);font-weight:300">Loading NYC weather...</span>
     </div>
   </div>
+  <div class="filter-wrap">
     <div class="filter-label">I am —</div>
     <div class="chips">
       <div class="chip" data-g="brooks"   onclick="selectGuest('brooks',this)"><div class="chip-pip" style="background:var(--brooks)"></div>Brooks Family</div>
@@ -274,7 +276,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
     <div class="transport-card">
       <div class="transport-icon">🍔</div>
       <div class="transport-title">Burger Joint</div>
-      <div class="transport-body">A NYC institution hidden inside the hotel — look for the curtain off the lobby near the elevators. Graffiti walls, no-frills burgers, and one of the best patties in the city. Walk-ins only, no reservations.<br><br><strong>Hours:</strong> Sun–Thu 11am–11:30pm · Fri–Sat 11am–midnight</div>
+      <div class="transport-body">A NYC burger restaurant hidden inside the hotel. Look for the curtain off the lobby behind the elevators. Graffiti walls, no-frills burgers, and one of the best patties in the city. Walk-ins only, no reservations, casual.<br><br><strong>Hours:</strong> Sun–Thu 11am–11:30pm · Fri–Sat 11am–midnight</div>
     </div>
     <div class="transport-card">
       <div class="transport-icon">🛎️</div>
@@ -284,7 +286,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
     <div class="transport-card">
       <div class="transport-icon">🛒</div>
       <div class="transport-title">Morton Williams</div>
-      <div class="transport-body">Full-service supermarket right across the street — great for snacks, drinks, deli, prepared foods, and anything you forgot to pack. Two-floor supermarket — ground floor has the deli, salad bar, prepared foods and bakery; upstairs has seating.<br><br><strong>Address:</strong> 140 W 57th St<br><strong>Hours:</strong> Open 24 hours</div>
+      <div class="transport-body">Full-service supermarket just a few doors down from the hotel if you exit to 57th st through Parker's. Great for snacks, drinks, deli, prepared foods, and anything you forgot to pack. Two-floor supermarket — ground floor has the deli, salad bar, prepared foods and bakery; upstairs has seating.<br><br><strong>Address:</strong> 140 W 57th St<br><strong>Hours:</strong> Open 24 hours</div>
     </div>
     <div class="transport-card">
       <div class="transport-icon">💊</div>
@@ -299,12 +301,12 @@ nav{position:sticky;top:0;z-index:100;background:rgba(248,242,234,0.96);backdrop
     <div class="transport-card">
       <div class="transport-icon">🎯</div>
       <div class="transport-title">Target</div>
-      <div class="transport-body">Full-size Target on the Upper West Side — great for clothes, toiletries, snacks, and anything you need.<br><br><strong>Address:</strong> 1863 Broadway (at 61st St)<br><strong>Hours:</strong> Daily 8am–11pm · ~15 min walk from hotel</div>
+      <div class="transport-body">The nearest Target is on the Upper West Side — great for any other essentials. Although, worth noting it is not as large as any California Target.<br><br><strong>Address:</strong> 1863 Broadway (at 61st St)<br><strong>Hours:</strong> Daily 8am–11pm · ~15 min walk from hotel</div>
     </div>
     <div class="transport-card">
       <div class="transport-icon">💉</div>
       <div class="transport-title">CVS Pharmacy</div>
-      <div class="transport-body">Convenient pharmacy and drugstore close to the hotel, great for prescriptions, toiletries, and essentials.<br><br><strong>Address:</strong> 1775 Broadway (near Columbus Circle)<br><strong>Hours:</strong> Open 24 hours</div>
+      <div class="transport-body">The nearest CVS is right by Columbus Circle, has a larger selection than the nearby Duane Reade.<br><br><strong>Address:</strong> 1775 Broadway (near Columbus Circle)<br><strong>Hours:</strong> Open 24 hours</div>
     </div>
   </div>
   <div class="section-heading" style="margin-bottom:20px">🚇 Getting Around NYC</div>
